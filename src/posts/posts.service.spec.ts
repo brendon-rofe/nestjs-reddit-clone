@@ -31,4 +31,12 @@ describe('PostsService', () => {
     const posts = service.findAll();
     expect(service.findAll()).toEqual([post1, post2]);
   });
+
+  it('should update a post', () => {
+    const post = { id: 1, title: 'Test Post', content: 'This is a test post.' };
+    service.create(post);
+    const newPost = { id: 1, title: 'Updated Test Post', content: 'This is an updated test post.' };
+    service.updatePost(newPost);
+    expect(service.findById(1)).toEqual(newPost);
+  });
 });

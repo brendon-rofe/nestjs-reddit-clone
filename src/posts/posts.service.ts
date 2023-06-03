@@ -16,4 +16,8 @@ export class PostsService {
     return post;
   };
 
+  findAll() {
+    return this.posts;
+  };
+
 };
