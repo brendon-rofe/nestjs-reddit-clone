@@ -28,7 +28,6 @@ describe('PostsService', () => {
     const post2 = { id: 2, title: 'Test Post 2', content: 'This is another test post.' };
     service.create(post1);
     service.create(post2);
-    const posts = service.findAll();
     expect(await service.findAll()).toEqual([post1, post2]);
   });
 
