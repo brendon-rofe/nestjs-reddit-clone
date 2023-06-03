@@ -20,9 +20,9 @@ export class PostsService {
     return this.posts;
   };
 
-  updatePost(updatePost) {
-    const index = this.posts.findIndex(post => post.id === updatePost.id);
-    if(index === -1) throw new NotFoundException(`Post with ID${updatePost.id} not found`);
+  update(id: number, updatePost) {
+    const index = this.posts.findIndex(post => post.id === id);
+    if(index === -1) throw new NotFoundException(`Post with ID${id} not found`);
     this.posts[index] = updatePost;
     return updatePost;
   };

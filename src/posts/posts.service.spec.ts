@@ -36,7 +36,7 @@ describe('PostsService', () => {
     const post = { id: 1, title: 'Test Post', content: 'This is a test post.' };
     service.create(post);
     const newPost = { id: 1, title: 'Updated Test Post', content: 'This is an updated test post.' };
-    service.updatePost(newPost);
+    service.update(1, newPost);
     expect(service.findById(1)).toEqual(newPost);
   });
 
