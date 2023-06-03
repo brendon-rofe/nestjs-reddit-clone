@@ -39,4 +39,10 @@ describe('PostsService', () => {
     service.updatePost(newPost);
     expect(service.findById(1)).toEqual(newPost);
   });
+
+  it('should remove a post', () => {
+    const post = { id: 1, title: 'Test Post', content: 'This is a test post.' };
+    service.create(post);
+    expect(service.remove(1)).toBeUndefined();
+  });
 });
