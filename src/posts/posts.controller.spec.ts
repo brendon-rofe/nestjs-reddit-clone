@@ -16,14 +16,20 @@ describe('PostsController', () => {
 
     const module: TestingModule = await Test.createTestingModule({
       controllers: [PostsController],
+      providers: [
+        {
+          provide: PostsService,
+          useValue: service
+        },
+      ],
     }).compile();
 
     controller = module.get<PostsController>(PostsController);
   });
 
-  it('should create a post', () => {
+  it('should create a post', async () => {
     const post = { id: 1, title: 'Test Post', content: 'This is a test post.' };
-    (service.create(post) as jest.Mock).mockResolvedValue(post);
-    expect(controller.create(post)).toBe(post);
+    (service.create as jest.Mock).mockResolvedValue(post);
+    expect(await controller.create(post)).toBe(post);
   });
 });
