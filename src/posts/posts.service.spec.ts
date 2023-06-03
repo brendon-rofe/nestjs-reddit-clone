@@ -17,8 +17,9 @@ describe('PostsService', () => {
     expect(service.create(post)).toEqual(post);
   });
 
-  it('should get a post for a given ID', () => {
+  it('should get a post for a given ID', async () => {
     const post = { id: 1, title: 'Test Post', content: 'This is a test post.' };
-    expect(service.findById(1)).toEqual(post);
+    service.create(post);
+    expect(await service.findById(1)).toEqual(post);
   });
 });
