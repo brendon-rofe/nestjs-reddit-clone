@@ -4,4 +4,4 @@ import { PostsModule } from './posts/posts.module';
 @Module({
   imports: [PostsModule],
 })
-export class AppModule {}
+export class AppModule {};

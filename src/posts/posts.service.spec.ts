@@ -12,7 +12,8 @@ describe('PostsService', () => {
     service = module.get<PostsService>(PostsService);
   });
 
-  it('should be defined', () => {
-    expect(service).toBeDefined();
+  it('should create a post', () => {
+    const post = { id: 1, title: 'Test Post', content: 'This is a test post.' };
+    expect(service.create(post)).toEqual(post);
   });
 });
