@@ -31,6 +31,7 @@ export class PostsService {
     const index = this.posts.find(post => post.id === id);
     if(index === -1) throw new NotFoundException(`Post with ID${id} not found`);
     this.posts.splice(index, 1);
+    return { messaage: `Post with id${id} removed`};
   }
 
 };

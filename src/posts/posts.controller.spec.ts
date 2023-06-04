@@ -30,4 +30,10 @@ describe('PostsController (e2e)', () => {
     expect(await controller.update(String(updatedPost.id), updatedPost)).toEqual(updatedPost)
   });
 
+  it('should remove a post', async () => {
+    const post = { id: 1, title: 'Test Post', content: 'This is a test post.' };
+    await controller.create(post);
+    expect(await controller.remove(String(post.id))).toEqual({ messaage: `Post with id${post.id} removed`});
+  });
+
 });
