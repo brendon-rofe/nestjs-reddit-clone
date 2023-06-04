@@ -27,7 +27,7 @@ describe('PostsController (e2e)', () => {
     const post = { id: 1, title: 'Test Post', content: 'This is a test post.' };
     const updatedPost = { id: 1, title: 'Updated Test Post', content: 'This is an updated test post.' };
     await controller.create(post);
-    expect(await controller.updatePost(updatedPost.id, updatedPost)).toEqual(updatedPost)
+    expect(await controller.update(String(updatedPost.id), updatedPost)).toEqual(updatedPost)
   });
 
 });

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { PostsService } from './posts.service';
 
 @Controller('posts')
@@ -13,6 +13,11 @@ export class PostsController {
   @Get(':id')
   findById(@Param('id') id: string) {
     return this.postsService.findById(parseInt(id));
+  };
+
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() body) {
+    return this.postsService.update(parseInt(id), body);
   };
 
 };
