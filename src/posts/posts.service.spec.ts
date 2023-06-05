@@ -23,6 +23,9 @@ describe('PostsService', () => {
     repository = module.get<Repository<Post>>('PostRepository');
   });
 
-  
+  it('shoud create a new post', async () => {
+    const newPost = { id: 1, title: 'Test Post', content: 'This is a test post.' };
+    expect(await service.create(newPost)).toEqual(newPost);
+  });
 
 });
