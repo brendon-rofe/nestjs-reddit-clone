@@ -23,6 +23,14 @@ describe('PostsController (e2e)', () => {
     expect(await controller.findById(String(post.id))).toEqual(post);
   });
 
+  it('should get all posts', async () => {
+    const post1 = { id: 1, title: 'Test Post 1', content: 'This is the first test post.' };
+    const post2 = { id: 2, title: 'Test Post 2', content: 'This is the second test post.' };
+    await controller.create(post1);
+    await controller.create(post2);
+    expect(await controller.findAll()).toEqual([post1, post2]);
+  });
+
   it('should update a post', async () => {
     const post = { id: 1, title: 'Test Post', content: 'This is a test post.' };
     const updatedPost = { id: 1, title: 'Updated Test Post', content: 'This is an updated test post.' };

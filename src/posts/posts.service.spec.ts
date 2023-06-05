@@ -42,6 +42,6 @@ describe('PostsService', () => {
   it('should remove a post', async () => {
     const post = { id: 1, title: 'Test Post', content: 'This is a test post.' };
     service.create(post);
-    expect(await service.remove(1)).toBeUndefined();
+    expect(await service.remove(1)).toEqual({ messaage: `Post with id${post.id} removed`});
   });
 });
