@@ -10,6 +10,11 @@ export class PostsController {
     return this.postsService.create(post);
   };
 
+  @Get()
+  findAll() {
+    return this.postsService.findAll();
+  };
+
   @Get(':id')
   findById(@Param('id') id: string) {
     return this.postsService.findById(parseInt(id));
