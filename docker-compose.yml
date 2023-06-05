@@ -2,16 +2,17 @@ version: '3.8'
 
 services:
   db:
-    image: postgres:13
-    container_name: nestjs_postgres
+    image: mysql:5.7
+    restart: always
     environment:
-      POSTGRES_USER: ${DB_USERNAME}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_NAME}
-    ports:
-      - 5432:5432
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - db_data:/var/lib/mysql
+    ports:
+      - '${DB_PORT}:${DB_PORT}'
 
 volumes:
-  pgdata:
+  db_data:
