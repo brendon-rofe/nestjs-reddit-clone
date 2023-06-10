@@ -11,6 +11,6 @@ export class PostsService {
   async create(post: CreatePostDto) {
     const newPost = await this.postRepo.create(post);
     await this.postRepo.save(newPost);
-    return { message: 'New post created', post: newPost };
+    return newPost;
   };
 };

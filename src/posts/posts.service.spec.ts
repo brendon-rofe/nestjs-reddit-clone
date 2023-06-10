@@ -1,19 +1,31 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { PostsService } from './posts.service';
+import { Repository } from 'typeorm';
+import { Post } from './post.entity';
+import { TypeOrmModule, getRepositoryToken } from '@nestjs/typeorm';
 
 describe('PostsService', () => {
   let service: PostsService;
+  let repo: Repository<Post>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [TypeOrmModule.forRoot({
+        type: 'sqlite',
+        database: ':memory:',
+        entities: [Post],
+        synchronize: true
+      }), TypeOrmModule.forFeature([Post])],
       providers: [PostsService],
     }).compile();
 
     service = module.get<PostsService>(PostsService);
+    repo = module.get<Repository<Post>>(getRepositoryToken(Post));
   });
 
   it('should create a new post', async () => {
-    const newPost = { title: 'Test Post', content: 'This is a test post' };
-    expect(await service.create(newPost)).toEqual({ message: 'New post created', post: newPost });
+    const post = { title: 'Test Post', content: 'This is a test post' };
+    const createdPost = await service.create(post);
+    expect(createdPost).toMatchObject(post);
   });
 });
