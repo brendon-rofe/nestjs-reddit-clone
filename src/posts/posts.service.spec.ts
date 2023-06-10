@@ -14,6 +14,6 @@ describe('PostsService', () => {
 
   it('should create a new post', async () => {
     const newPost = { title: 'Test Post', content: 'This is a test post' };
-    expect(await service.create(newPost)).toEqual(newPost);
+    expect(await service.create(newPost)).toEqual({ message: 'New post created', post: newPost });
   });
 });
