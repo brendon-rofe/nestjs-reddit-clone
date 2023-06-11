@@ -19,6 +19,10 @@ export class PostsService {
     return await this.postRepo.findOneBy({ id });
   };
 
+  async findAll() {
+    return await this.postRepo.find();
+  };
+
   async update(id: number, updatedPost: UpdatePostDto) {
     const post = await this.postRepo.findOneBy({ id });
     if(!post) {
