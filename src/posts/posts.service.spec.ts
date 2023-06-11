@@ -29,10 +29,21 @@ describe('PostsService', () => {
     expect(createdPost).toMatchObject(post);
   });
 
-  it('should fetch a post', async () => {
+  it('should fetch a post by ID', async () => {
     const post = { title: 'Test Post', content: 'This is a test post' };
     await service.create(post);
     expect(await service.findById(1)).toMatchObject(post);
+  });
+
+  it('should fetch all posts', async () => {
+    const post1 = { title: 'First Test Post', content: 'This is the first test post' };
+    const post2 = { title: 'Second Test Post', content: 'This is the second test post' };
+    await service.create(post1);
+    await service.create(post2);
+    expect(await service.findAll()).toMatchObject([
+      { title: 'First Test Post', content: 'This is the first test post' },
+      { title: 'Second Test Post', content: 'This is the second test post' }
+    ]);
   });
 
   it('should update a post', async () => {
