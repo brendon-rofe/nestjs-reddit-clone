@@ -34,4 +34,11 @@ describe('PostsService', () => {
     await service.create(post);
     expect(await service.findById(1)).toMatchObject(post);
   });
+
+  it('should update a post', async () => {
+    const post = { title: 'Test Post', content: 'This is a test post' };
+    const updatedPost = { title: 'Updated Test Post', content: 'This is an updated test post' };
+    await service.create(post);
+    expect(await service.update(1, updatedPost)).toMatchObject(updatedPost);
+  });
 });
