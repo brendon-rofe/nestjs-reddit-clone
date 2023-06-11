@@ -6,10 +6,19 @@ describe('PostsController', () => {
   let controller: PostsController;
   let service: PostsService;
 
+  const mockPostsService = {
+    create: jest.fn().mockImplementation((dto) => dto),
+  };
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [PostsController],
-      providers: [PostsService]
+      providers: [
+        {
+          provide: PostsService,
+          useValue: mockPostsService,
+        },
+      ],
     }).compile();
 
     controller = module.get<PostsController>(PostsController);
