@@ -6,9 +6,13 @@ describe('PostsController', () => {
   let controller: PostsController;
   let service: PostsService;
 
+  const post = { title: 'Test Post', content: 'This is a test post.' };
+
   const mockPostsService = {
     create: jest.fn().mockImplementation((dto) => dto),
-    findById: jest.fn().mockImplementation()
+    findById: jest.fn().mockImplementation((id) => {
+      return { id, ...post };
+    }),
   };
 
   beforeEach(async () => {
@@ -34,6 +38,6 @@ describe('PostsController', () => {
   it('should find a post by ID', async () => {
     const post = { title: 'Test Post', content: 'This is a test post.' };
     await controller.create(post);
-    expect(await controller.findById(1)).toMatchObject(post);
+    expect(await controller.findById('1')).toMatchObject({ id: 1, ...post });
   });
 });
