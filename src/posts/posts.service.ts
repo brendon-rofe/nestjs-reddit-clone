@@ -27,4 +27,13 @@ export class PostsService {
     await this.postRepo.update(id, updatedPost);
     return await this.postRepo.findOneBy({ id });
   };
+
+  async delete(id: number) {
+    const post = await this.postRepo.findOneBy({ id });
+    if(!post) {
+      throw new Error('Post not found');
+    };
+    await this.postRepo.delete(id);
+    return { message: 'Post successfully deleted' };
+  };
 };

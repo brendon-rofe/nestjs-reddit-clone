@@ -3,7 +3,6 @@ import { PostsService } from './posts.service';
 import { Repository } from 'typeorm';
 import { Post } from './post.entity';
 import { TypeOrmModule, getRepositoryToken } from '@nestjs/typeorm';
-import exp from 'constants';
 
 describe('PostsService', () => {
   let service: PostsService;
@@ -46,7 +45,6 @@ describe('PostsService', () => {
   it('should delete a post', async () => {
     const post = { title: 'Test Post', content: 'This is a test post' };
     await service.create(post);
-    await service.delete(1);
-    expect(await service.findById(1)).toEqual({ message: 'Post successfully deleted' });
+    expect(await service.delete(1)).toEqual({ message: 'Post successfully deleted' });
   });
 });
