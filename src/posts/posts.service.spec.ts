@@ -28,4 +28,10 @@ describe('PostsService', () => {
     const createdPost = await service.create(post);
     expect(createdPost).toMatchObject(post);
   });
+
+  it('should fetch a post', async () => {
+    const post = { title: 'Test Post', content: 'This is a test post' };
+    await service.create(post);
+    expect(service.findById(1)).toMatchObject(post);
+  });
 });
