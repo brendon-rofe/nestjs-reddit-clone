@@ -32,6 +32,6 @@ describe('PostsService', () => {
   it('should fetch a post', async () => {
     const post = { title: 'Test Post', content: 'This is a test post' };
     await service.create(post);
-    expect(service.findById(1)).toMatchObject(post);
+    expect(await service.findById(1)).toMatchObject(post);
   });
 });

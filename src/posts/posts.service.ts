@@ -13,4 +13,8 @@ export class PostsService {
     await this.postRepo.save(newPost);
     return newPost;
   };
+
+  async findById(id: number) {
+    return await this.postRepo.findOneBy({ id });
+  };
 };
