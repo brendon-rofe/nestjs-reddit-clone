@@ -51,6 +51,6 @@ describe('PostsController', () => {
 
   it('should update a post', async () => {
     await controller.create(post1);
-    expect(await controller.update(updatedPost)).toMatchObject({ id: 1, ...updatedPost });
+    expect(await controller.update('1', updatedPost)).toMatchObject({ id: 1, ...updatedPost });
   });
 });

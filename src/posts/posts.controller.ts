@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dtos/create-post.dto';
+import { UpdatePostDto } from './dtos/update-post.dto';
 
 @Controller('posts')
 export class PostsController {
@@ -19,5 +20,10 @@ export class PostsController {
   @Get()
   async findAll() {
     return await this.postsService.findAll();
+  };
+
+  @Patch(':id')
+  async update(@Param('id') id: string, updatedPost: UpdatePostDto) {
+    return await this.postsService.update(parseInt(id), updatedPost);
   };
 };
