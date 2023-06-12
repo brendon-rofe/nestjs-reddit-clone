@@ -16,4 +16,8 @@ export class PostsController {
     return await this.postsService.findById(parseInt(id));
   };
 
+  @Get()
+  async findAll() {
+    return await this.postsService.findAll();
+  };
 };

@@ -7,14 +7,14 @@ describe('PostsController', () => {
   let service: PostsService;
 
   const post1 = { title: 'First Test Post', content: 'This is the first test post.' };
-  const post2 = { title: 'First Test Post', content: 'This is the first test post.' };
+  const post2 = { title: 'Second Test Post', content: 'This is the second test post.' };
 
   const mockPostsService = {
     create: jest.fn().mockImplementation((dto) => dto),
     findById: jest.fn().mockImplementation((id) => {
       return { id, ...post1 };
     }),
-    findAll: jest.fn().mockImplementation(() => [post1, post2]),
+    findAll: jest.fn().mockImplementation(() => [{ id: 1, ...post1 }, { id: 2, ...post2 }])
   };
 
   beforeEach(async () => {
@@ -44,6 +44,6 @@ describe('PostsController', () => {
   it('should find all posts', async () => {
     await controller.create(post1);
     await controller.create(post2);
-    expect(await controller.findAll).toMatchObject([post1, post2]);
+    expect(await controller.findAll()).toMatchObject([{ id: 1, ...post1 }, { id: 2, ...post2 }]);
   });
 });
