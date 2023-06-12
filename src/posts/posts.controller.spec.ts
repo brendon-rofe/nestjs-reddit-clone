@@ -8,13 +8,15 @@ describe('PostsController', () => {
 
   const post1 = { title: 'First Test Post', content: 'This is the first test post.' };
   const post2 = { title: 'Second Test Post', content: 'This is the second test post.' };
+  const updatedPost = { title: 'Updated Test Post', content: 'This is an updated test post.' }
 
   const mockPostsService = {
     create: jest.fn().mockImplementation((dto) => dto),
     findById: jest.fn().mockImplementation((id) => {
       return { id, ...post1 };
     }),
-    findAll: jest.fn().mockImplementation(() => [{ id: 1, ...post1 }, { id: 2, ...post2 }])
+    findAll: jest.fn().mockImplementation(() => [{ id: 1, ...post1 }, { id: 2, ...post2 }]),
+    update: jest.fn().mockImplementation(() => { return { id: 1, ...updatedPost } })
   };
 
   beforeEach(async () => {
@@ -45,5 +47,10 @@ describe('PostsController', () => {
     await controller.create(post1);
     await controller.create(post2);
     expect(await controller.findAll()).toMatchObject([{ id: 1, ...post1 }, { id: 2, ...post2 }]);
+  });
+
+  it('should update a post', async () => {
+    await controller.create(post1);
+    expect(await controller.update(updatedPost)).toMatchObject({ id: 1, ...updatedPost });
   });
 });
