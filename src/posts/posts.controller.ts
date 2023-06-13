@@ -23,7 +23,7 @@ export class PostsController {
   };
 
   @Patch(':id')
-  async update(@Param('id') id: string, updatedPost: UpdatePostDto) {
+  async update(@Param('id') id: string, @Body() updatedPost: UpdatePostDto) {
     return await this.postsService.update(parseInt(id), updatedPost);
   };
 
