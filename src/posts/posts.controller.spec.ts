@@ -16,7 +16,8 @@ describe('PostsController', () => {
       return { id, ...post1 };
     }),
     findAll: jest.fn().mockImplementation(() => [{ id: 1, ...post1 }, { id: 2, ...post2 }]),
-    update: jest.fn().mockImplementation(() => { return { id: 1, ...updatedPost } })
+    update: jest.fn().mockImplementation(() => { return { id: 1, ...updatedPost } }),
+    delete: jest.fn().mockImplementation(() => { return { message: `Post with ID: 1 deleted` } })
   };
 
   beforeEach(async () => {
@@ -52,5 +53,10 @@ describe('PostsController', () => {
   it('should update a post', async () => {
     await controller.create(post1);
     expect(await controller.update('1', updatedPost)).toMatchObject({ id: 1, ...updatedPost });
+  });
+
+  it('should delete a post', async () => {
+    await controller.create(post1);
+    expect(await controller.delete('1')).toEqual({ message: `Post with ID: 1 deleted` });
   });
 });
