@@ -13,4 +13,8 @@ export class UsersService {
     await this.userRepo.save(newUser);
     return newUser;
   };
+
+  async findByEmail(email: string) {
+    return await this.userRepo.findOneBy({ email });
+  };
 };
