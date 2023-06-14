@@ -16,4 +16,12 @@ export class AuthenticationService {
     newUser.passwordHash = undefined;
     return newUser;
   };
+
+  async validateUser(username: string, password: string) {
+    const user = await this.usersService.findByUsername(username);
+    if(user && await bcrypt.compare(password, user.passwordHash)) {
+      user.passwordHash = undefined;
+      return user;
+    }
+  };
 };
