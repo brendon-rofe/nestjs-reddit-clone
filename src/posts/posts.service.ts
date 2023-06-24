@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PostEntity } from './post.entity';
-import { Repository } from 'typeorm';
+import { DeleteDateColumn, LessThan, Repository } from 'typeorm';
 import { CreatePostDto, UpdatePostDto } from './dtos';
 
 @Injectable()
@@ -17,14 +17,25 @@ export class PostsService {
 
   async findById(postId: number) {
     const post = await this.postsRepo.findOneBy({ id: postId });
-    if(!post) {
+    if(!post || post.movedToTrash === true) {
       throw new HttpException(`Post with ID: ${postId} not found`, HttpStatus.NOT_FOUND);
     };
     return post;
   };
 
   async findAll() {
-    return await this.postsRepo.find();
+    let postsToDisplay: PostEntity[] = [];
+    const posts = await this.postsRepo.find();
+    for(let i = 0; i < posts.length; i++) {
+      if(posts[i].movedToTrash !== true) {
+        postsToDisplay.push(posts[i]);
+      };
+    };
+    return postsToDisplay;
+  };
+
+  async findAllInTrash() {
+    return await this.postsRepo.find({ where: { movedToTrash: true } })
   };
 
   async update(postId: number, dto: UpdatePostDto) {
@@ -35,7 +46,7 @@ export class PostsService {
 
   async moveToTrash(postId: number) {
     const post = await this.findById(postId);
-    post.deletedAt = new Date();
+    post.movedToTrash = true
     await this.postsRepo.save(post);
     return { message: `Post with ID: ${postId} moved to trash` };
   };

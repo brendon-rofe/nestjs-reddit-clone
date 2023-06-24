@@ -11,16 +11,22 @@ export class PostsController {
   async create(@Body() dto: CreatePostDto ) {
     return await this.postsService.create(dto);
   };
+  
+  @Get()
+  async findAll() {
+    return await this.postsService.findAll();
+  };
+
+  @Get('trash')
+  async findAllInTrash() {
+    return await this.postsService.findAllInTrash();
+  };
 
   @Get(':id')
   async findById(@Param('id') postId: string) {
     return await this.postsService.findById(parseInt(postId));
   };
 
-  @Get()
-  async findAll() {
-    return await this.postsService.findAll();
-  };
 
   @Patch(':id')
   async update(@Param('id') postId: string, @Body() dto: UpdatePostDto) {

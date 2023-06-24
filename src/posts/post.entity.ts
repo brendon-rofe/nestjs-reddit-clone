@@ -18,7 +18,7 @@ export class PostEntity {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @DeleteDateColumn()
-  deletedAt: Date
+  @Column({ default: false })
+  movedToTrash: boolean;
 
 };
