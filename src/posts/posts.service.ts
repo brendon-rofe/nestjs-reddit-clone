@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PostEntity } from './post.entity';
 import { Repository } from 'typeorm';
-import { CreatePostDto } from './dtos';
+import { CreatePostDto, UpdatePostDto } from './dtos';
 
 @Injectable()
 export class PostsService {
@@ -25,6 +25,12 @@ export class PostsService {
 
   async findAll() {
     return await this.postsRepo.find();
+  };
+
+  async update(postId: number, dto: UpdatePostDto) {
+    await this.findById(postId);
+    await this.postsRepo.update(postId, dto);
+    return { message: 'Post updated', post: await this.findById(postId) };
   };
 
 };
