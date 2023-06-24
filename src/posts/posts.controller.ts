@@ -15,6 +15,11 @@ export class PostsController {
   @Get(':id')
   async findById(@Param('id') postId: string) {
     return await this.postsService.findById(parseInt(postId));
-  }
+  };
+
+  @Get()
+  async findAll() {
+    return await this.postsService.findAll();
+  };
 
 };

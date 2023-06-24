@@ -23,4 +23,8 @@ export class PostsService {
     return post;
   };
 
+  async findAll() {
+    return await this.postsRepo.find();
+  };
+
 };
