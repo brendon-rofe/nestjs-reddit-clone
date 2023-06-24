@@ -33,4 +33,11 @@ export class PostsService {
     return { message: 'Post updated', post: await this.findById(postId) };
   };
 
+  async moveToTrash(postId: number) {
+    const post = await this.findById(postId);
+    post.deletedAt = new Date();
+    await this.postsRepo.save(post);
+    return { message: `Post with ID: ${postId} moved to trash` };
+  };
+
 };
