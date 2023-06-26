@@ -5,7 +5,7 @@ import { config } from 'dotenv';
 config();
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy) {
+export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
 
   constructor() {
     super({
