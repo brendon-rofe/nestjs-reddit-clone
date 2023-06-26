@@ -1,16 +1,35 @@
-import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from 'src/users/dtos';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
+import { LoginDto, RegisterDto } from './dtos';
+import * as bcrypt from 'bcryptjs';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
 
   constructor(
     private usersService: UsersService,
+    private jwtService: JwtService
   ) {};
 
-  async register(dto: CreateUserDto) {
+  async validateUser(dto: LoginDto) {
+    const user = await this.usersService.findByEmail(dto.email);
+    const passwordsMatch = await bcrypt.compare(dto.password, user.hash);
+    if(!user || passwordsMatch) {
+      throw new HttpException('Incorrect credentials', HttpStatus.BAD_REQUEST);
+    };
+    return user;
+  };
+
+  async register(dto: RegisterDto) {
     return await this.usersService.create(dto);
+  };
+
+  async login(user: any) {
+    const payload = { email: user.email, sub: user.userId };
+    return {
+      access_token: this.jwtService.sign(payload)
+    };
   };
 
 };
