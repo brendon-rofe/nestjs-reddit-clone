@@ -26,18 +26,18 @@ export class PostsController {
 
   @Get(':id')
   async findById(@Param('id') postId: string) {
-    return await this.postsService.findById(parseInt(postId));
+    return await this.postsService.findById(postId);
   };
 
 
   @Patch(':id')
   async update(@Param('id') postId: string, @Body() dto: UpdatePostDto) {
-    return await this.postsService.update(parseInt(postId), dto);
+    return await this.postsService.update(postId, dto);
   };
 
   @Delete(':id')
   async moveToTrash(@Param('id') postId: string) {
-    return await this.postsService.moveToTrash(parseInt(postId));
+    return await this.postsService.moveToTrash(postId);
   };
 
 };
