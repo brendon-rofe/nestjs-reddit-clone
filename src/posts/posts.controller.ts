@@ -1,7 +1,8 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Req, UseGuards } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto, UpdatePostDto } from './dtos';
 import { AuthGuard } from '@nestjs/passport';
+import { Request } from 'express';
 
 @Controller('posts')
 export class PostsController {
@@ -10,8 +11,8 @@ export class PostsController {
 
   @UseGuards(AuthGuard('jwt'))
   @Post()
-  async create(@Body() dto: CreatePostDto ) {
-    return await this.postsService.create(dto);
+  async create(@Body() dto: CreatePostDto, @Req() req: Request) {
+    return await this.postsService.create(dto, req.user);
   };
   
   @Get()

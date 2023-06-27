@@ -23,7 +23,10 @@ export class PostEntity {
   movedToTrash: boolean;
 
   @ManyToOne(() => UserEntity, user => user.posts)
-  @JoinColumn({ name: 'username' })
-  user: UserEntity
+  @JoinColumn({ name: 'userId' })
+  user: UserEntity;
+
+  @Column()
+  userId: string
 
 };

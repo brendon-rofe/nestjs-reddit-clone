@@ -3,19 +3,25 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { PostEntity } from './post.entity';
 import { Repository } from 'typeorm';
 import { CreatePostDto, UpdatePostDto } from './dtos';
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class PostsService {
   constructor(
     @InjectRepository(PostEntity) private postsRepo: Repository<PostEntity>,
+    private usersService: UsersService,
   ) {}
 
-  async create(dto: CreatePostDto) {
-    try {
-      const newPost = await this.postsRepo.create(dto);
-      await this.postsRepo.save(newPost);
-      return { message: 'New post created', post: newPost };
-    } catch (error) {}
+  async create(dto: CreatePostDto, user: any) {
+    const foundUser = await this.usersService.findByEmail(user.email);
+
+    const newPost = new PostEntity();
+    newPost.title = dto.title;
+    newPost.content = dto.content;
+    newPost.user = foundUser;
+    newPost.userId = foundUser.id;
+
+    return this.postsRepo.save(newPost);
   }
 
   async findById(postId: string) {
