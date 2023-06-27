@@ -15,7 +15,7 @@ export class AuthService {
   async validateUser(dto: LoginDto) {
     const user = await this.usersService.findByEmail(dto.email);
     const passwordsMatch = await bcrypt.compareSync(dto.password, user.hash);
-    if(passwordsMatch) {
+    if(!passwordsMatch) {
       throw new HttpException('Incorrect credentials', HttpStatus.BAD_REQUEST);
     };
   };
