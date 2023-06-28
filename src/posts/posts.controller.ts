@@ -12,7 +12,6 @@ export class PostsController {
   @UseGuards(AuthGuard('jwt'))
   @Post()
   async create(@Body() dto: CreatePostDto, @Req() req: Request) {
-    console.log(req.user);
     return await this.postsService.create(dto, req.user);
   };
   
@@ -29,7 +28,6 @@ export class PostsController {
   @UseGuards(AuthGuard('jwt'))
   @Get('user-posts')
   async findAllUserPosts(@Req() req: Request) {
-    console.log(req.user)
     return await this.postsService.findAllUserPosts(req.user);
   };
 
