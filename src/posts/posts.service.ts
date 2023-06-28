@@ -10,7 +10,7 @@ export class PostsService {
   constructor(
     @InjectRepository(PostEntity) private postsRepo: Repository<PostEntity>,
     private usersService: UsersService,
-  ) {}
+  ) {};
 
   async create(dto: CreatePostDto, user: any) {
     const foundUser = await this.usersService.findByEmail(user.email);
@@ -19,10 +19,9 @@ export class PostsService {
     newPost.title = dto.title;
     newPost.content = dto.content;
     newPost.user = foundUser;
-    newPost.userId = foundUser.id;
 
     return this.postsRepo.save(newPost);
-  }
+  };
 
   async findById(postId: string) {
     const post = await this.postsRepo.findOneBy({ id: postId });
@@ -33,7 +32,7 @@ export class PostsService {
       );
     }
     return post;
-  }
+  };
 
   async findAll() {
     const postsToDisplay: PostEntity[] = [];
@@ -44,11 +43,11 @@ export class PostsService {
       }
     }
     return postsToDisplay;
-  }
+  };
 
   async findAllInTrash() {
     return await this.postsRepo.find({ where: { movedToTrash: true } });
-  }
+  };
 
   async update(postId: string, dto: UpdatePostDto) {
     await this.findById(postId);
@@ -61,5 +60,5 @@ export class PostsService {
     post.movedToTrash = true;
     await this.postsRepo.save(post);
     return { message: `Post with ID: ${postId} moved to trash` };
-  }
-}
+  };
+};

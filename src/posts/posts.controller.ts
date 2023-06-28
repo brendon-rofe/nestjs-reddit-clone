@@ -30,7 +30,6 @@ export class PostsController {
     return await this.postsService.findById(postId);
   };
 
-
   @Patch(':id')
   async update(@Param('id') postId: string, @Body() dto: UpdatePostDto) {
     return await this.postsService.update(postId, dto);
