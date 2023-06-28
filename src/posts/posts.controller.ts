@@ -26,6 +26,13 @@ export class PostsController {
     return await this.postsService.findAllInTrash();
   };
 
+  @UseGuards(AuthGuard('jwt'))
+  @Get('user-posts')
+  async findAllUserPosts(@Req() req: Request) {
+    console.log(req.user)
+    return await this.postsService.findAllUserPosts(req.user);
+  };
+
   @Get(':id')
   async findById(@Param('id') postId: string) {
     return await this.postsService.findById(parseInt(postId));

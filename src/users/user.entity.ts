@@ -22,7 +22,7 @@ export class UserEntity {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @OneToMany(() => PostEntity, post => post.user)
+  @OneToMany(() => PostEntity, (post: PostEntity) => post.author)
   posts: PostEntity[];
 
 };

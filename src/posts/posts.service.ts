@@ -4,6 +4,7 @@ import { PostEntity } from './post.entity';
 import { Repository } from 'typeorm';
 import { CreatePostDto, UpdatePostDto } from './dtos';
 import { UsersService } from 'src/users/users.service';
+import { authorize } from 'passport';
 
 @Injectable()
 export class PostsService {
@@ -18,7 +19,8 @@ export class PostsService {
     const newPost = new PostEntity();
     newPost.title = dto.title;
     newPost.content = dto.content;
-    newPost.user = foundUser;
+    newPost.author = foundUser;
+    newPost.authorName = foundUser.username;
 
     return this.postsRepo.save(newPost);
   };
@@ -32,6 +34,12 @@ export class PostsService {
       );
     }
     return post;
+  };
+
+  async findAllUserPosts(user: any) {
+    const foundUser = await this.usersService.findByEmail(user.email);
+    console.log(foundUser);
+    return await this.postsRepo.find({ where: { authorName: foundUser.username } })
   };
 
   async findAll() {
