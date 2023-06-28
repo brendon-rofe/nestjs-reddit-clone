@@ -12,6 +12,7 @@ export class PostsController {
   @UseGuards(AuthGuard('jwt'))
   @Post()
   async create(@Body() dto: CreatePostDto, @Req() req: Request) {
+    console.log(req.user);
     return await this.postsService.create(dto, req.user);
   };
   
@@ -27,17 +28,17 @@ export class PostsController {
 
   @Get(':id')
   async findById(@Param('id') postId: string) {
-    return await this.postsService.findById(postId);
+    return await this.postsService.findById(parseInt(postId));
   };
 
   @Patch(':id')
   async update(@Param('id') postId: string, @Body() dto: UpdatePostDto) {
-    return await this.postsService.update(postId, dto);
+    return await this.postsService.update(parseInt(postId), dto);
   };
 
   @Delete(':id')
   async moveToTrash(@Param('id') postId: string) {
-    return await this.postsService.moveToTrash(postId);
+    return await this.postsService.moveToTrash(parseInt(postId));
   };
 
 };

@@ -4,8 +4,8 @@ import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGenerat
 @Entity('posts')
 export class PostEntity {
 
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @Column({ length: 100 })
   title: string;
@@ -27,6 +27,6 @@ export class PostEntity {
   user: UserEntity;
 
   @Column()
-  userId: string
+  userId: number
 
 };

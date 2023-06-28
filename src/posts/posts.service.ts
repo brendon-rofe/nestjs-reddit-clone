@@ -23,7 +23,7 @@ export class PostsService {
     return this.postsRepo.save(newPost);
   };
 
-  async findById(postId: string) {
+  async findById(postId: number) {
     const post = await this.postsRepo.findOneBy({ id: postId });
     if (!post || post.movedToTrash === true) {
       throw new HttpException(
@@ -49,13 +49,13 @@ export class PostsService {
     return await this.postsRepo.find({ where: { movedToTrash: true } });
   };
 
-  async update(postId: string, dto: UpdatePostDto) {
+  async update(postId: number, dto: UpdatePostDto) {
     await this.findById(postId);
     await this.postsRepo.update(postId, dto);
     return { message: 'Post updated', post: await this.findById(postId) };
   }
 
-  async moveToTrash(postId: string) {
+  async moveToTrash(postId: number) {
     const post = await this.findById(postId);
     post.movedToTrash = true;
     await this.postsRepo.save(post);
