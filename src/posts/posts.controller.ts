@@ -9,7 +9,7 @@ export class PostsController {
 
   constructor(private postsService: PostsService) {};
 
-  @UseGuards(AuthGuard('jwt'))
+  // @UseGuards(AuthGuard('jwt'))
   @Post()
   async create(@Body() dto: CreatePostDto, @Req() req: Request) {
     return await this.postsService.create(dto, req.user);
@@ -25,7 +25,7 @@ export class PostsController {
     return await this.postsService.findAllInTrash();
   };
 
-  @UseGuards(AuthGuard('jwt'))
+  // @UseGuards(AuthGuard('jwt'))
   @Get('user-posts')
   async findAllUserPosts(@Req() req: Request) {
     return await this.postsService.findAllUserPosts(req.user);

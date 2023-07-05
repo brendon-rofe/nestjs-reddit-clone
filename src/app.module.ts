@@ -4,6 +4,7 @@ import { PostsModule } from './posts/posts.module';
 import { UsersModule } from './users/users.module';
 import { config } from 'dotenv';
 import { PassportModule } from '@nestjs/passport';
+import { AuthModule } from './auth/auth.module';
 config();
 
 @Module({
@@ -11,7 +12,7 @@ config();
     PassportModule,
     DatabaseModule, 
     PostsModule, 
-    UsersModule, 
+    UsersModule, AuthModule, 
   ],
 })
 export class AppModule {};
