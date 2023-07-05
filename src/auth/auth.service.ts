@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
-import { RegisterDto } from './dtos';
+import { LoginDto, RegisterDto } from './dtos';
 import * as bcrypt from 'bcryptjs';
 import { CreateUserDto } from 'src/users/dtos';
 
@@ -18,6 +18,17 @@ export class AuthService {
     return await this.usersService.create(newUser);
   };
 
-  async login() {};
+  async login(dto: LoginDto) {
+    const foundUser = await this.usersService.findByEmail(dto.email);
+    if(!foundUser) {
+      throw new HttpException('Incorrect credentials provided', HttpStatus.BAD_REQUEST);
+    };
+    const passwordMatches = await bcrypt.compare(dto.password, foundUser.hash);
+    if(!passwordMatches) {
+      throw new HttpException('Incorrect credentials provided', HttpStatus.BAD_REQUEST);
+    };
+    foundUser.hash = undefined;
+    return foundUser;
+  };
 
 };
