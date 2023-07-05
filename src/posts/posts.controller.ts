@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Req, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Request, UseGuards } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto, UpdatePostDto } from './dtos';
 import { AuthGuard } from '@nestjs/passport';
@@ -26,8 +26,8 @@ export class PostsController {
 
   @UseGuards(AuthGuard('jwt'))
   @Get('user-posts')
-  async findAllUserPosts(@Req() req: Request) {
-    // return await this.postsService.findAllUserPosts(req.user);
+  async findAllUserPosts(@Request() req) {
+    return await this.postsService.findAllUserPosts(req.user);
   };
 
   @Get(':id')
