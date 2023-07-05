@@ -1,18 +1,17 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Req, Request, UseGuards } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto, UpdatePostDto } from './dtos';
 import { AuthGuard } from '@nestjs/passport';
-import { Request } from 'express';
 
 @Controller('posts')
 export class PostsController {
 
   constructor(private postsService: PostsService) {};
 
-  // @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard('jwt'))
   @Post()
-  async create(@Body() dto: CreatePostDto, @Req() req: Request) {
-    return await this.postsService.create(dto, req.user);
+  async create(@Request() req, @Body() dto: CreatePostDto) {
+    return await this.postsService.create(req.user, dto);
   };
   
   @Get()
@@ -25,10 +24,10 @@ export class PostsController {
     return await this.postsService.findAllInTrash();
   };
 
-  // @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard('jwt'))
   @Get('user-posts')
   async findAllUserPosts(@Req() req: Request) {
-    return await this.postsService.findAllUserPosts(req.user);
+    // return await this.postsService.findAllUserPosts(req.user);
   };
 
   @Get(':id')

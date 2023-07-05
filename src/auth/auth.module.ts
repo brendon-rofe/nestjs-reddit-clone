@@ -4,8 +4,9 @@ import { AuthController } from './auth.controller';
 import { UsersModule } from 'src/users/users.module';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
-import { LocalStrategy } from './strategies/local.strategy';
 import { config } from 'dotenv';
+import { JwtStrategy } from './strategies/jwt.strategy';
+// import { LocalStrategy } from './strategies/local.strategy';
 config();
 
 @Module({
@@ -17,7 +18,7 @@ config();
       signOptions: { expiresIn: '23d' },
     })
   ],
-  providers: [AuthService],
+  providers: [AuthService, JwtStrategy],
   controllers: [AuthController]
 })
 export class AuthModule {};

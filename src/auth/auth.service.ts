@@ -13,7 +13,7 @@ export class AuthService {
     private jwtService: JwtService
   ) {};
 
-  async validateUser(email, password) {
+  async validateUser(email: string, password: string) {
     const foundUser = await this.usersService.findByEmail(email);
     const passwordMatches = await bcrypt.compare(password, foundUser.hash);
     if(!passwordMatches) {
