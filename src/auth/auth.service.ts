@@ -9,6 +9,15 @@ export class AuthService {
 
   constructor(private usersService: UsersService) {};
 
+  async validateUser(email, password) {
+    const foundUser = await this.usersService.findByEmail(email);
+    const passwordMatches = await bcrypt.compare(password, foundUser.hash);
+    if(!passwordMatches) {
+      throw new HttpException('Incorrect credentials provided', HttpStatus.BAD_REQUEST);
+    };
+    return foundUser;
+  };
+
   async register(dto: RegisterDto) {
     const hash = await bcrypt.hash(dto.password, 10);
     const newUser = new CreateUserDto();
@@ -19,16 +28,7 @@ export class AuthService {
   };
 
   async login(dto: LoginDto) {
-    const foundUser = await this.usersService.findByEmail(dto.email);
-    if(!foundUser) {
-      throw new HttpException('Incorrect credentials provided', HttpStatus.BAD_REQUEST);
-    };
-    const passwordMatches = await bcrypt.compare(dto.password, foundUser.hash);
-    if(!passwordMatches) {
-      throw new HttpException('Incorrect credentials provided', HttpStatus.BAD_REQUEST);
-    };
-    foundUser.hash = undefined;
-    return foundUser;
+    
   };
 
 };
