@@ -4,7 +4,6 @@ import { PostEntity } from './post.entity';
 import { Repository } from 'typeorm';
 import { CreatePostDto, UpdatePostDto } from './dtos';
 import { UsersService } from 'src/users/users.service';
-import { authorize } from 'passport';
 
 @Injectable()
 export class PostsService {
@@ -69,4 +68,5 @@ export class PostsService {
     await this.postsRepo.save(post);
     return { message: `Post with ID: ${postId} moved to trash` };
   };
+  
 };
