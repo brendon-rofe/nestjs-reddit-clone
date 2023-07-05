@@ -1,13 +1,17 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 import { LoginDto, RegisterDto } from './dtos';
-import * as bcrypt from 'bcryptjs';
+import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto } from 'src/users/dtos';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class AuthService {
 
-  constructor(private usersService: UsersService) {};
+  constructor(
+    private usersService: UsersService,
+    private jwtService: JwtService
+  ) {};
 
   async validateUser(email, password) {
     const foundUser = await this.usersService.findByEmail(email);
@@ -28,7 +32,15 @@ export class AuthService {
   };
 
   async login(dto: LoginDto) {
-    
+    const user = await this.validateUser(dto.email, dto.password);
+    try {
+      const payload = { sub: user.id, email: user.email };
+      return {
+        token: this.jwtService.sign(payload)
+      }
+    } catch (error) {
+      throw new Error(`Error logging in ${error} user ${error.message}`);
+    };
   };
 
 };

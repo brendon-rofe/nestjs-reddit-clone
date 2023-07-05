@@ -3,6 +3,8 @@ import { PassportStrategy } from "@nestjs/passport";
 import { Strategy } from "passport-jwt";
 import { AuthService } from "../auth.service";
 import { LoginDto } from "../dtos";
+import { config } from "dotenv";
+config();
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
