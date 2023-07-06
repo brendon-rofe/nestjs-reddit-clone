@@ -11,7 +11,7 @@ export class PostsController {
   @UseGuards(AuthGuard('jwt'))
   @Post()
   async create(@Request() req, @Body() dto: CreatePostDto) {
-    return await this.postsService.create(req.user, dto);
+    return await this.postsService.create(dto, req.user);
   };
   
   @Get()
