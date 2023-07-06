@@ -37,7 +37,6 @@ export class PostsService {
 
   async findAllUserPosts(user: any) {
     const foundUser = await this.usersService.findByEmail(user.email);
-    console.log(foundUser);
     return await this.postsRepo.find({ where: { authorName: foundUser.username } })
   };
 
