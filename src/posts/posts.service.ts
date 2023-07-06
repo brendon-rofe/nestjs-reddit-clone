@@ -13,15 +13,17 @@ export class PostsService {
   ) {};
 
   async create(dto: CreatePostDto, user: any) {
-    const foundUser = await this.usersService.findByEmail(user.email);
-
-    const newPost = new PostEntity();
-    newPost.title = dto.title;
-    newPost.content = dto.content;
-    newPost.author = foundUser;
-    newPost.authorName = foundUser.username;
-
-    return this.postsRepo.save(newPost);
+    try {
+      const foundUser = await this.usersService.findByEmail(user.email);
+      const newPost = new PostEntity();
+      newPost.title = dto.title;
+      newPost.content = dto.content;
+      newPost.author = foundUser;
+      newPost.authorName = foundUser.username;
+      return this.postsRepo.save(newPost);
+    } catch(error) {
+      throw Error(error);
+    };
   };
 
   async findById(postId: number) {
