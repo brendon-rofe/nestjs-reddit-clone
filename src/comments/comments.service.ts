@@ -16,7 +16,7 @@ export class CommentsService {
     private usersService: UsersService,
   ) {};
 
-  async create(postId: number, user: any, dto: CreateCommentDto) {
+  async create(postId: number, user: UserEntity, dto: CreateCommentDto) {
     const foundPost = await this.postsService.findById(postId);
     const foundUser = await this.usersService.findByEmail(user.email);
     const newComment = new CommentEntity();

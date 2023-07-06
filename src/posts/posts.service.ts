@@ -25,7 +25,7 @@ export class PostsService {
   };
 
   async findById(postId: number) {
-    const post = await this.postsRepo.findOneBy({ id: postId });
+    const post = await this.postsRepo.findOne({ where: { id: postId }, relations: ['comments'] });
     if (!post || post.movedToTrash === true) {
       throw new HttpException(
         `Post with ID: ${postId} not found`,

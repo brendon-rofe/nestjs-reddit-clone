@@ -1,5 +1,6 @@
+import { CommentEntity } from "src/comments/comment.entity";
 import { UserEntity } from "src/users/user.entity";
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity('posts')
 export class PostEntity {
@@ -21,6 +22,9 @@ export class PostEntity {
 
   @Column({ default: false })
   movedToTrash: boolean;
+
+  @OneToMany(() => CommentEntity, (comment) => comment.post)
+  comments: CommentEntity[];
 
   @ManyToOne(() => UserEntity, (author: UserEntity) => author.posts)
   author: UserEntity;
