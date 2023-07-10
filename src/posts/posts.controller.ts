@@ -21,8 +21,8 @@ export class PostsController {
 
   // @UseGuards(AuthGuard('jwt'))
   @Get('trash')
-  async findAllInTrash() {
-    return await this.postsService.findAllInUsersTrash();
+  async findAllInTrash(@Request() req) {
+    return await this.postsService.findAllInUsersTrash(req.user);
   };
 
   @UseGuards(AuthGuard('jwt'))

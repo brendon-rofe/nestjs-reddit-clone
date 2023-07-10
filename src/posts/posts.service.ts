@@ -53,8 +53,8 @@ export class PostsService {
     return postsToDisplay;
   };
 
-  async findAllInUsersTrash() {
-    // const foundUser = await this.usersService.findByEmail(user.email);
+  async findAllInUsersTrash(user) {
+    const foundUser = await this.usersService.findByEmail(user.email);
     return await this.postsRepo.find({ where: { movedToTrash: true } });
   };
 
