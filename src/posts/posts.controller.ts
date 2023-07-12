@@ -13,10 +13,16 @@ export class PostsController {
   async create(@Request() req, @Body() dto: CreatePostDto) {
     return await this.postsService.create(dto, req.user);
   };
+
   
   @Get()
   async findAll() {
     return await this.postsService.findAll();
+  };
+
+  @Get('test')
+  async test() {
+    return await this.postsService.testMethod();
   };
 
   // @UseGuards(AuthGuard('jwt'))
