@@ -13,7 +13,7 @@ export class PostsService {
   ) {};
 
   async testMethod() {
-    return { message: 'This is a test' };
+    return { message: 'Test successful' };
   };
 
   async create(dto: CreatePostDto, user: any) {
