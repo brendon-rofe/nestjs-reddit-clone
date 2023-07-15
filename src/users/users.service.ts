@@ -24,10 +24,6 @@ export class UsersService {
     }
   }
 
-  async test() {
-    return { message: 'This is  a test' };
-  }
-
   async findByEmail(email: string) {
     const user = await this.usersRepo.findOneBy({ email });
     if (!user) {
