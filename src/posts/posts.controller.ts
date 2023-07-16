@@ -20,11 +20,6 @@ export class PostsController {
     return await this.postsService.findAll();
   };
 
-  @Get('test')
-  async test() {
-    return await this.postsService.testMethod();
-  };
-
   // @UseGuards(AuthGuard('jwt'))
   @Get('trash')
   async findAllInTrash(@Request() req) {

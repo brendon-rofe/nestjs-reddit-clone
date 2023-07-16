@@ -12,10 +12,6 @@ export class PostsService {
     private usersService: UsersService,
   ) {};
 
-  async testMethod() {
-    return { message: 'Test successful' };
-  };
-
   async create(dto: CreatePostDto, user: any) {
     try {
       const foundUser = await this.usersService.findByEmail(user.email);
