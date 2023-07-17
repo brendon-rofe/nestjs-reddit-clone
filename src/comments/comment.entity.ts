@@ -1,5 +1,5 @@
 import { PostEntity } from "src/posts/post.entity";
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity('comments')
 export class CommentEntity {
@@ -11,6 +11,7 @@ export class CommentEntity {
   content: string;
 
   @ManyToOne(() => PostEntity, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: "post_id" })
   post: PostEntity;
 
   @Column()
