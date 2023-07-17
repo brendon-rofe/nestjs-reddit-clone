@@ -26,7 +26,10 @@ export class CommentsService {
     return await this.commentRepo.save(newComment);
   };
 
-  async getAllUserComments() {};
+  async getAllUserComments(user: any) {
+    const comments = await this.commentRepo.find({ where: { author: user } });
+    return comments;
+  };
 
   async getById() {};
 
