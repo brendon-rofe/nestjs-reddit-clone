@@ -31,7 +31,9 @@ export class CommentsService {
     return comments;
   };
 
-  async getById() {};
+  async getById(commentId: number) {
+    return await this.commentRepo.findOneBy({ id: commentId });
+  };
 
   async update() {};
 
