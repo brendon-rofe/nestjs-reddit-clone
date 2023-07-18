@@ -27,10 +27,10 @@ export class PostEntity {
   comments: CommentEntity[];
 
   @ManyToOne(() => UserEntity)
-  @JoinColumn({ name: "author_id" })
+  @JoinColumn({ name: "user_id" })
   author: UserEntity;
 
   @Column()
-  authorName: string;
+  authorUserame: string;
 
 };

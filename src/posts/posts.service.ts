@@ -19,7 +19,7 @@ export class PostsService {
       newPost.title = dto.title;
       newPost.content = dto.content;
       newPost.author = foundUser;
-      newPost.authorName = foundUser.username;
+      newPost.authorUserame = foundUser.username;
       return this.postsRepo.save(newPost);
     } catch(error) {
       throw Error(error);
@@ -39,7 +39,7 @@ export class PostsService {
 
   async findAllUserPosts(user: any) {
     const foundUser = await this.usersService.findByEmail(user.email);
-    return await this.postsRepo.find({ where: { authorName: foundUser.username } })
+    return await this.postsRepo.find({ where: { authorUserame: foundUser.username } })
   };
 
   async findAll() {
