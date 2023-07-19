@@ -32,6 +32,11 @@ export class PostsController {
     return await this.postsService.findAllUserPosts(req.user);
   };
 
+  @Get('user-id/:userId')
+  async getAllByUserId(@Param('userId') userId: string) {
+    return await this.postsService.findAllByUserId(parseInt(userId));
+  };
+
   @Get(':id')
   async findById(@Param('id') postId: string) {
     return await this.postsService.findById(parseInt(postId));
