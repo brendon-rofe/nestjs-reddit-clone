@@ -42,6 +42,10 @@ export class PostsService {
     return await this.postsRepo.find({ where: { authorUserame: foundUser.username } })
   };
 
+  async findAllByUserId(userId: number) {
+    return await this.postsRepo.find({ where: { author: { id: userId } } });
+  };
+
   async findAll() {
     const postsToDisplay: PostEntity[] = [];
     const posts = await this.postsRepo.find();
