@@ -8,7 +8,7 @@ import { CreateUserDto } from './dtos';
 export class UsersService {
   constructor(
     @InjectRepository(UserEntity) private usersRepo: Repository<UserEntity>,
-  ) {}
+  ) {};
 
   async create(dto: CreateUserDto) {
     try {
@@ -21,8 +21,8 @@ export class UsersService {
       return newUser;
     } catch (error) {
       console.log(error);
-    }
-  }
+    };
+  };
 
   async findByEmail(email: string) {
     const user = await this.usersRepo.findOneBy({ email });
