@@ -20,7 +20,7 @@ config();
         PostEntity,
         CommentEntity,
       ],
-      synchronize: true,
+      synchronize: false,
     }),
   ],
 })

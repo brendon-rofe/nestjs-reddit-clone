@@ -8,19 +8,19 @@ export class PostEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ length: 100 })
+  @Column({ length: 100, nullable: true })
   title: string;
 
-  @Column('text')
+  @Column('text', { nullable: true })
   content: string;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ nullable: true })
   createdAt: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ nullable: true })
   updatedAt: Date;
 
-  @Column({ default: false })
+  @Column({ default: false, nullable: true })
   movedToTrash: boolean;
 
   @OneToMany(() => CommentEntity, (comment) => comment.post)
@@ -30,7 +30,7 @@ export class PostEntity {
   @JoinColumn({ name: "user_id" })
   author: UserEntity;
 
-  @Column()
+  @Column({ nullable: true })
   authorUserame: string;
 
 };

@@ -7,20 +7,20 @@ export class CommentEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column('text')
+  @Column('text', { nullable: true })
   content: string;
 
   @ManyToOne(() => PostEntity, { onDelete: 'CASCADE' })
   @JoinColumn({ name: "post_id" })
   post: PostEntity;
 
-  @Column()
+  @Column({ nullable: true })
   author: string;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ nullable: true })
   createdAt: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ nullable: true })
   updatedAt: Date;
 
 };
