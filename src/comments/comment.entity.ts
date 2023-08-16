@@ -1,4 +1,4 @@
-import { PostEntity } from "src/posts/post.entity";
+import { PostEntity } from "../posts/post.entity";
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity('comments')

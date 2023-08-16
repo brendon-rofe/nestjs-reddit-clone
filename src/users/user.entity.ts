@@ -1,5 +1,5 @@
-import { CommentEntity } from "src/comments/comment.entity";
-import { PostEntity } from "src/posts/post.entity";
+import { CommentEntity } from "../comments/comment.entity";
+import { PostEntity } from "../posts/post.entity";
 import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity('users')
