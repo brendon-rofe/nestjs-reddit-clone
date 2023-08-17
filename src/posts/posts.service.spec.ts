@@ -10,10 +10,10 @@ describe('PostsService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      // imports: [
-      //   TypeOrmModule.forRoot(dbConfig),
-      //   // TypeOrmModule.forFeature([PostEntity]),
-      // ],
+      imports: [
+        TypeOrmModule.forRoot(dbConfig),
+        TypeOrmModule.forFeature([PostEntity]),
+      ],
       providers: [
         PostsService,
         {

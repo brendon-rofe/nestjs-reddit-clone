@@ -12,7 +12,7 @@ if (process.env.NODE_ENV === 'test') {
   dbConfig = {
     type: 'sqlite',
     database: 'db.sqlite3',
-    entities: [PostEntity],
+    entities: [PostEntity, UserEntity, CommentEntity],
     synchronize: true,
     dropSchema: true,
   };
