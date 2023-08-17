@@ -11,7 +11,7 @@ export let dbConfig = {};
 if (process.env.NODE_ENV === 'test') {
   dbConfig = {
     type: 'sqlite',
-    database: ':memory:',
+    database: 'db.sqlite3',
     entities: [PostEntity],
     synchronize: true,
     dropSchema: true,
